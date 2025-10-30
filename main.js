@@ -7,6 +7,20 @@ const oscillator = audioCtx.createOscillator();
 oscillator.connect(gainNode);
 gainNode.connect(audioCtx.destination);
 oscillator.type = "sine";
+//define canvas variables
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var width = ctx.canvas.width;
+var height = ctx.canvas.height;
+var amplitude = 40;
+
+function line() {
+    freq = pitch / 10000;
+    y = height/2 + (amplitude * Math.sin(x * 2 * MathPI * freq));
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    x = x + 1;
+}
 
 oscillator.start();
 gainNode.gain.value = 0;
