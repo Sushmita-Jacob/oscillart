@@ -15,15 +15,20 @@ var height = ctx.canvas.height;
 var amplitude = 40;
 var counter = 0;
 var interval = null;
+var reset = false
 
 function drawWave() {
-    ctx.clearRect(0, 0, width, height);
-    x = 0;
-    y = height/2;
-    ctx.moveTo(x, y);
-    ctx.beginPath();
+    clearInterval(interval);
+    if (reset) {
+        ctx.clearRect(0, 0, width, height);
+        x = 0;
+        y = height/2;
+        ctx.moveTo(x, y);
+        ctx.beginPath();
+    }
     counter = 0;
     interval = setInterval(line, 20);
+    reset = false;
 }
 
 function line() {
@@ -50,14 +55,15 @@ notenames.set("B", 493.9);
 
 function frequency(pitch) {
     freq = pitch / 10000;
-    gainNode.gain.setValueAtTime(100, audioCtx.currentTime)
-    oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime)
-    gainNode.gain.setValueAtTime(0, audioCtx.currentTime + 1)
+    gainNode.gain.setValueAtTime(100, audioCtx.currentTime);
+    oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime);
+    gainNode.gain.setValueAtTime(0, audioCtx.currentTime + 0.9);
 }
 
 
 
 function handle() {
+    reset = true;
     audioCtx.resume();
     gainNode.gain.value = 0;
     var usernotes = String(input.value);
@@ -65,5 +71,14 @@ function handle() {
     for (i = 0; i < usernotes.length; i++) {
         noteslist.push(notenames.get(usernotes.charAt(i)))
     }
-    drawWave();
+    let j = 0;
+    repeat = setInterval(() => {
+        if (j < noteslist.length) {
+            frequency(parseInt(noteslist[j]));
+            drawWave();
+        j++
+        } else {
+            clearInterval(repeat)
+        }
+    }, 1000)
 }
