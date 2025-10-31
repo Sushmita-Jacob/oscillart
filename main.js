@@ -27,7 +27,6 @@ function drawWave() {
 }
 
 function line() {
-    freq = pitch / 10000;
     y = height/2 + (amplitude * Math.sin(x * 2 * Math.PI * freq));
     ctx.lineTo(x, y);
     ctx.stroke();
@@ -48,7 +47,9 @@ notenames.set("F", 349.2);
 notenames.set("G", 392.0);
 notenames.set("A", 440.0);
 notenames.set("B", 493.9);
+
 function frequency(pitch) {
+    freq = pitch / 10000;
     gainNode.gain.setValueAtTime(100, audioCtx.currentTime)
     oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime)
     gainNode.gain.setValueAtTime(0, audioCtx.currentTime + 1)
