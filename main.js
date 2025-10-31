@@ -12,7 +12,6 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var width = ctx.canvas.width;
 var height = ctx.canvas.height;
-var amplitude = 40;
 var counter = 0;
 var interval = null;
 var reset = false;
@@ -36,7 +35,7 @@ function drawWave() {
 }
 
 function line() {
-    y = height/2 + amplitude * Math.sin(x * 2 * Math.PI * freq * (0.5 * length));
+    y = height/2 + (vol_slider.value/100)*40 * Math.sin(x * 2 * Math.PI * freq * (0.5 * length));
     ctx.lineTo(x, y);
     ctx.strokeStyle = color_picker.value;
     ctx.stroke();
