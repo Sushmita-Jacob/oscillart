@@ -61,6 +61,9 @@ function handle() {
     audioCtx.resume();
     gainNode.gain.value = 0;
     var usernotes = String(input.value);
-    frequency(notenames.get(usernotes));
+    var noteslist = [];
+    for (i = 0; i < usernotes.length; i++) {
+        noteslist.push(notenames.get(usernotes.charAt(i)))
+    }
     drawWave();
 }
