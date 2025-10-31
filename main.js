@@ -19,6 +19,8 @@ var timepernote = 0;
 var length = 0;
 const color_picker = document.getElementById('color');
 const vol_slider = document.getElementById('vol-slider');
+var blob, recorder = null;
+var chunks = [];
 
 function drawWave() {
     clearInterval(interval);
@@ -86,4 +88,10 @@ function handle() {
             clearInterval(repeat)
         }
     }, timepernote)
+}
+
+function startRecording(){
+    const canvasStream = canvas.captureStream(20); //Frame rate of canvas
+    const combinedStream = new MediaStream();
+    canvasStream.getVideoTracks().forEach(track => combinedStream.addTrack(track));
 }
