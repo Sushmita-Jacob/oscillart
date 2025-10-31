@@ -18,6 +18,7 @@ var interval = null;
 var reset = false;
 var timepernote = 0;
 var length = 0;
+const color_picker = document.getElementById('color');
 
 function drawWave() {
     clearInterval(interval);
@@ -36,6 +37,7 @@ function drawWave() {
 function line() {
     y = height/2 + amplitude * Math.sin(x * 2 * Math.PI * freq * (0.5 * length));
     ctx.lineTo(x, y);
+    ctx.strokeStyle = color_picker.value;
     ctx.stroke();
     x = x + 1;
     counter++;
