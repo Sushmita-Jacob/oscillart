@@ -92,6 +92,9 @@ function handle() {
 
 function startRecording(){
     const canvasStream = canvas.captureStream(20); //Frame rate of canvas
+    const audioDestination = audioCtx.createMediaStreamDestination();
+    gainNode.connect(audioDestination);
     const combinedStream = new MediaStream();
     canvasStream.getVideoTracks().forEach(track => combinedStream.addTrack(track));
+    audioDestination.stream.getAudioTracks().forEach(track => combinedStream.addTrack(track));
 }
