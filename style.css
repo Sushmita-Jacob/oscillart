@@ -7,6 +7,14 @@
     margin-bottom: 2em;
 }
 
+#input {
+    background-color: rgb(235, 184, 215);
+}
+
+#vol-slider {
+    accent-color: rgb(229, 45, 155);
+}
+
 #container {
     height: 100vh;
     width: 100vh;
